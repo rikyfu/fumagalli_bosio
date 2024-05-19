@@ -1,0 +1,1 @@
+vaso =pygame.transform.scale(vaso,(150, 150))
