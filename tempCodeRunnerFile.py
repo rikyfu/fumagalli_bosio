@@ -1,1 +1,2 @@
-vaso =pygame.transform.scale(vaso,(150, 150))
+piu_moneta = pygame.USEREVENT + 1
+# pygame.time.set_timer(piu_moneta,1200)

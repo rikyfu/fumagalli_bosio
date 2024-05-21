@@ -8,7 +8,7 @@ class Vaso:
         self.image = pygame.image.load('immagine/vaso.png').convert_alpha()
         self.image = pygame.transform.scale(self.image,(size[0], size[1]))
         self.rect = pygame.Rect(pos[0],pos[1],size[0],size[1])
-    
+
     def moveleft(self,pixels):
         
         self.rect.x -= pixels
