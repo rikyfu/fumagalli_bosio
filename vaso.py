@@ -6,13 +6,13 @@ class Vaso:
         
         self.screen = screen
         self.image = pygame.image.load('immagine/vaso.png').convert_alpha()
-        self.image = pygame.transform.scale(self.image,(150, 150))
+        self.image = pygame.transform.scale(self.image,(size[0], size[1]))
         self.rect = pygame.Rect(pos[0],pos[1],size[0],size[1])
     
     def moveleft(self,pixels):
         
         self.rect.x -= pixels
-        if self.rect.x < 0:
+        if self.rect.x < -50:
             self.rect.x = 600
         
     
@@ -20,7 +20,7 @@ class Vaso:
 
         self.rect.x += pixels
         if self.rect.x > 650:
-            self.rect.x = 0
+            self.rect.x = -50
     
     def draw(self):
 
