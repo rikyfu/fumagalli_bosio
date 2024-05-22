@@ -26,12 +26,9 @@ deserto =pygame.transform.scale(deserto,(600, 800))
 # vaso =pygame.transform.scale(vaso,(150, 150))
 
 vaso = Vaso(screen,[225,585],[175,175])
-moneta = Moneta([65,65])
-pozione = Pozione([70,70])
-piu_moneta = pygame.USEREVENT + 1
-pygame.time.set_timer(piu_moneta,1200)
-piu_pozione = pygame.USEREVENT + 1
-pygame.time.set_timer(piu_pozione,1200)
+
+oggetti = []
+timer = 0
 
 while True:
     for event in pygame.event.get():
@@ -47,18 +44,25 @@ while True:
        vaso.moveright(vel_vaso)
     if keys[K_LEFT]:
         vaso.moveleft(vel_vaso)
-   
+
+    # creazione oggetti
+    if timer == 0:
+        cosa = randint(0,5)
+        if cosa == 0 or cosa == 3 or cosa == 5:
+            oggetti.append(Moneta([65,65]))
+        else:
+            oggetti.append(Pozione([70,70]))
+        
+        min = 5* fps
+        max = 6 * fps
+        timer = randint(min, max)
+    timer -= 1
+
+    # disegno gli oggetti
+    for oggetto in oggetti:
+        oggetto.update(screen)
+        oggetto.draw(screen)
     
-    # # if event.type == piu_pozione:
-    moneta.update(screen)
-    moneta.draw(screen)
-
-    # if event.type == piu_pozione:
-    pozione.update(screen)
-    pozione.draw(screen)
-
-    
-
     screen.blit(base,(0,740))
     # disegno vaso
     vaso.draw()

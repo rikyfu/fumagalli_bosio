@@ -8,7 +8,7 @@ class Pozione:
         self.image = pygame.transform.scale(self.image,(size[0], size[1]))
 
         self.rect = pygame.Rect(randint(0,600),-10,size[0],size[1])
-        self.speed_y = randint(1,6)
+        self.speed_y = 4
    
     def update(self, screen):
         self.rect.y += self.speed_y 
@@ -19,8 +19,6 @@ class Pozione:
 
         
             
-         
-
            
     def draw(self, screen):
         screen.blit(self.image, self.rect)

@@ -8,8 +8,8 @@ class Moneta:
         self.image = pygame.image.load('immagine/moneta.png').convert_alpha()
         self.image = pygame.transform.scale(self.image,(size[0], size[1]))
 
-        self.rect = pygame.Rect(randint(50,575),-20,size[0],size[1])
-        self.speed_y = randint(1,6)
+        self.rect = pygame.Rect(randint(50,550),-20,size[0],size[1])
+        self.speed_y = randint(4,6)
        
     def update(self,screen):
          self.rect.y += self.speed_y
