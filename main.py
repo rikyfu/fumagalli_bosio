@@ -27,7 +27,7 @@ deserto =pygame.transform.scale(deserto,(600, 800))
 
 vaso = Vaso(screen,[225,585],[175,175])
 moneta = Moneta(screen,[65,65])
-pozione = Pozione(screen,[70,70])
+pozione = Pozione([70,70])
 piu_moneta = pygame.USEREVENT + 1
 pygame.time.set_timer(piu_moneta,1200)
 
@@ -50,9 +50,10 @@ while True:
     if event.type == piu_moneta:
          moneta.update()
          moneta.draw()
-    
-    pozione.update()
-    pozione.draw()
+
+    pozione.update(screen)
+    pozione.draw(screen)
+
     
 
     screen.blit(base,(0,740))
