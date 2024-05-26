@@ -70,10 +70,10 @@ while True:
 
     vaso.draw()
     screen.blit(font_surf,(5,30))
-
-    font = pygame.font.Font('immagine/font.TTF', 50)
-    text = font.render(str(punti), 1 ,'Black')
-    screen.blit(text,(240,25))
+    font =  pygame.font.Font('immagine/font.TTF',40)
+    text = font.render(str(punti),False,'Black')
+    screen.blit(text,(270,35))
+    
     
 
    # screen.blit(vaso,(225,570))

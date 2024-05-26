@@ -25,7 +25,8 @@ class Moneta:
         
         if self.rect.colliderect(self.vaso.rect):
              self.punti += 1
-  
+             
+
              self.rect.x = randint(0,screen.get_width())
              self.rect.y =  -randint(20,40)
             
