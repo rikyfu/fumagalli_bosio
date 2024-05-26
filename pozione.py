@@ -19,7 +19,10 @@ class Pozione:
             self.rect.y =-randint(20,40)
             self.rect.x = randint(0,screen.get_width())
     
-   
+    def collisione(self,screen):
+        self.screen = screen
+
+
                    
            
     def draw(self, screen):
