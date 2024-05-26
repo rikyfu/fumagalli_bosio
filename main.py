@@ -22,10 +22,10 @@ gameover = pygame.image.load('immagine/gameover.png').convert_alpha()
 scritta = pygame.font.Font('immagine/font.TTF',40)
 font_surf = scritta.render('punteggio',False,'Black')
 vaso = Vaso(screen,[225,585],[175,175])
-
+punti = 0
 oggetti = []
 timer = 0
-punti = 0
+
 
 while True:
     for event in pygame.event.get():
@@ -46,14 +46,11 @@ while True:
     if timer == 0:
         cosa = randint(0,6)
         if cosa == 0 or cosa == 3 or cosa == 5:
-             oggetti.append(Moneta([65,65],vaso,punti))
+             oggetti.append(Moneta([70,70],vaso,punti))
             
         else:
              oggetti.append(Pozione([70,70],vaso))
-             
-
-            
-        
+                   
         min = 10* fps
         max = 15 * fps
         timer = randint(min, max)
@@ -62,8 +59,9 @@ while True:
     # disegno gli oggetti
     for oggetto in oggetti:
         oggetto.update(screen)
-        oggetto.draw(screen)
         oggetto.collisione(screen)
+        oggetto.draw(screen)
+        
        
        
     
@@ -75,8 +73,8 @@ while True:
 
     font = pygame.font.Font('immagine/font.TTF', 50)
     text = font.render(str(punti), 1 ,'Black')
-    screen.blit(text, (250, 25))
-  
+    screen.blit(text,(240,25))
+    
 
    # screen.blit(vaso,(225,570))
 
