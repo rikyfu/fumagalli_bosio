@@ -17,7 +17,8 @@ class Moneta:
          if self.rect.y >=  screen.get_height():
             self.rect.x = randint(0,screen.get_width())
             self.rect.y =  -randint(20,40)
-         
+
+   
     
 
     def draw(self,screen):

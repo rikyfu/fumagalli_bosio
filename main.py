@@ -18,13 +18,7 @@ base = pygame.image.load('immagine/deserto1.png').convert()
 base =pygame.transform.scale(base,(600, 100))
 deserto = pygame.image.load('immagine/deserto.png').convert()
 deserto =pygame.transform.scale(deserto,(600, 800))
-# pozione = pygame.image.load('immagine/pozione.png').convert_alpha()
-# pozione =pygame.transform.scale(pozione,(70, 70))
-# moneta = pygame.image.load('immagine/moneta.png').convert_alpha()
-# moneta =pygame.transform.scale(moneta,(65, 65))
-# vaso = pygame.image.load('immagine/vaso.png').convert_alpha()
-# vaso =pygame.transform.scale(vaso,(150, 150))
-
+gameover = pygame.image.load('immagine/gameover.png').convert_alpha()
 vaso = Vaso(screen,[225,585],[175,175])
 
 oggetti = []
@@ -47,14 +41,18 @@ while True:
 
     # creazione oggetti
     if timer == 0:
-        cosa = randint(0,5)
+        cosa = randint(0,6)
         if cosa == 0 or cosa == 3 or cosa == 5:
-            oggetti.append(Moneta([65,65]))
+             oggetti.append(Moneta([65,65]))
+            
         else:
-            oggetti.append(Pozione([70,70]))
+             oggetti.append(Pozione([70,70],vaso))
+             
+
+            
         
-        min = 5* fps
-        max = 6 * fps
+        min = 10* fps
+        max = 15 * fps
         timer = randint(min, max)
     timer -= 1
 
@@ -62,11 +60,17 @@ while True:
     for oggetto in oggetti:
         oggetto.update(screen)
         oggetto.draw(screen)
+       
+       
     
     screen.blit(base,(0,740))
     # disegno vaso
+
     vaso.draw()
- 
+    
+   
+
+  
 
    # screen.blit(vaso,(225,570))
 
