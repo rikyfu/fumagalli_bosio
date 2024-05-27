@@ -23,6 +23,7 @@ class Moneta:
     
     def collisione(self,screen):
         
+        
         if self.rect.colliderect(self.vaso.rect):
              self.punti += 1
              
@@ -35,3 +36,5 @@ class Moneta:
 
     def draw(self,screen):
          screen.blit(self.image, self.rect)
+    
+    
