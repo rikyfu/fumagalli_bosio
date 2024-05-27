@@ -10,7 +10,7 @@ class Moneta:
         self.image = pygame.transform.scale(self.image,(size[0], size[1]))
 
         self.rect = pygame.Rect(randint(50,550),-20,size[0],size[1])
-        self.speed_y = randint(4,6)
+        self.speed_y = randint(5,8)
         
        
     def update(self,screen):

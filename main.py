@@ -4,7 +4,7 @@ pygame.init()
 from random import randint
 from pygame.locals import *
 from vaso import Vaso
-from pozione import Pozione
+from moneta2 import Moneta2
 from moneta import Moneta
 
 WIDTH, HEIGHT = 600, 800
@@ -51,9 +51,9 @@ while True:
     if timer == 0:
         cosa = randint(0,1)
         if cosa == 0 :
-             oggetti.append(Moneta([65,65]))
+             oggetti.append(Moneta([68,68]))
         else:
-             oggetti.append(Pozione([70,70]))
+             oggetti.append(Moneta2([68,68]))
              
         min = 1* fps
         max = 2 * fps
