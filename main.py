@@ -65,7 +65,7 @@ while True:
         if oggetto.update(screen):
             togliere.append(i)
         print(len(oggetti))
-        if oggetto.rect.colliderect(vaso.rect):
+        if oggetto.rect.colliderect(vaso.rect) and oggetto.rect.centerx>vaso.rect.left and oggetto.rect.centerx<vaso.rect.right and oggetto.rect.top<vaso.rect.top:
             togliere.append(i)
             punti += 1
             
