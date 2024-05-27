@@ -19,10 +19,15 @@ base =pygame.transform.scale(base,(600, 100))
 deserto = pygame.image.load('immagine/deserto.png').convert()
 deserto =pygame.transform.scale(deserto,(600, 800))
 gameover = pygame.image.load('immagine/gameover.png').convert_alpha()
-scritta = pygame.font.Font('immagine/font.TTF',40)
-font_surf = scritta.render('punteggio',False,'Black')
-vaso = Vaso(screen,[225,585],[175,175])
+scritta_font = pygame.font.Font('immagine/font.TTF',40)
+font_surf = scritta_font.render('punteggio',False,'Black')
 punti = 0
+punti_font =  pygame.font.Font('immagine/font.TTF',40)
+punti_img = punti_font.render(str(punti),False,'Black')
+vaso = Vaso(screen,[225,585],[175,175])
+# pozione = Pozione([70,70],vaso)
+# moneta = Moneta([65,65],vaso,punti)
+
 oggetti = []
 timer = 0
 
@@ -44,35 +49,41 @@ while True:
 
     # creazione oggetti
     if timer == 0:
-        cosa = randint(0,6)
-        if cosa == 0 or cosa == 3 or cosa == 5:
-             oggetti.append(Moneta([70,70],vaso,punti))
-            
+        cosa = randint(0,1)
+        if cosa == 0 :
+             oggetti.append(Moneta([65,65]))
         else:
-             oggetti.append(Pozione([70,70],vaso))
-                   
-        min = 10* fps
-        max = 15 * fps
+             oggetti.append(Pozione([70,70]))
+             
+        min = 1* fps
+        max = 2 * fps
         timer = randint(min, max)
     timer -= 1
 
-    # disegno gli oggetti
-    for oggetto in oggetti:
-        oggetto.update(screen)
-        oggetto.collisione(screen)
-        oggetto.draw(screen)
-        
-       
-       
+    togliere = []
+    for i, oggetto in enumerate(oggetti):
+        if oggetto.update(screen):
+            togliere.append(i)
+        print(len(oggetti))
+        if oggetto.rect.colliderect(vaso.rect):
+            togliere.append(i)
+            punti += 1
+            
+            punti_img = punti_font.render(str(punti),False,'Black')
+        else:
+            oggetto.draw(screen)
+    for el in togliere[::-1]:
+        oggetti.pop(el)
+        print(len(oggetti))
+        print()
     
+    screen.blit(punti_img,(270,35))
     screen.blit(base,(0,740))
     # disegno vaso
 
     vaso.draw()
     screen.blit(font_surf,(5,30))
-    font =  pygame.font.Font('immagine/font.TTF',40)
-    text = font.render(str(punti),False,'Black')
-    screen.blit(text,(270,35))
+    
     
     
 
