@@ -18,9 +18,7 @@ class Moneta2:
         if self.rect.y >=  screen.get_height():
             return True 
            
-    
-    def collisione(self,screen):
-        self.screen = screen
+
 
 
                    

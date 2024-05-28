@@ -1,2 +1,1 @@
-
-    if timer == 0:
+from pozione import Pozione
