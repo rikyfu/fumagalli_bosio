@@ -7,8 +7,9 @@ from vaso import Vaso
 from moneta2 import Moneta2
 from moneta import Moneta
 from pozione import Pozione
-from bottone_tavolo import Bottone
-from bottone_tavolo import Tavolo
+from fumagalli_bosio.bottone_tavolo import Bottone
+from fumagalli_bosio.bottone_tavolo import Tavolo
+
 
 WIDTH, HEIGHT = 600, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
