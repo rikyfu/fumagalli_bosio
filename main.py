@@ -87,63 +87,138 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit() 
             exit()
+        if not pygame_active:
+            pos = pygame.mouse.get_pos()
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                pygame_active = True
+
+                punti = 0
+            else:
+                bottone_gioca.base()
+            if bottone_regole.rect.collidepoint(pos):
+                bottone_regole.chiaro()
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    pygame_regole_active = True
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    pygame_active = True
+                    pygame_regole_active = False
+                    punti = 0
+            else:
+                bottone_regole.base()
     
-    screen.blit(deserto,(0,0))
+# creazione if stati del gioco---------------------------------------------------------------------------------------
+    if pygame_active:
+        screen.blit(deserto,(0,0))
 
-    keys = pygame.key.get_pressed()
-    # tasti per movimento del vaso
-    if keys[K_RIGHT]:
-       vaso.moveright(vel_vaso)
-    if keys[K_LEFT]:
-        vaso.moveleft(vel_vaso)
+        keys = pygame.key.get_pressed()
+        # tasti per movimento del vaso-----------------------------------------------------------------------
+        if keys[K_RIGHT]:
+            vaso.moveright(vel_vaso)
+        if keys[K_LEFT]:
+            vaso.moveleft(vel_vaso)
 
-    # creazione oggetti
-    if timer == 0:
-        cosa = randint(0,2)
-        if cosa == 0 :
-             oggetti.append(Moneta([68,68]))
-        if cosa == 1:
-             oggetti.append(Moneta2([68,68]))
-        # else:
-        #      pozioni.append(Pozione([70,70]))
-             
-        min = 1* fps
-        max = 2 * fps
-        timer = randint(min, max)
-    timer -= 1
-
-    togliere = []
-    for i, oggetto in enumerate(oggetti):
-        if oggetto.update(screen):
-            togliere.append(i)
-        print(len(oggetti))
-        if oggetto.rect.colliderect(vaso.rect) and oggetto.rect.centerx>vaso.rect.left and oggetto.rect.centerx<vaso.rect.right and oggetto.rect.top<vaso.rect.top:
-            togliere.append(i)
-            punti += 1
-            
-            punti_img = punti_font.render(str(punti),False,'Black')
-        else:
-            oggetto.draw(screen)
-    for el in togliere[::-1]:
-        oggetti.pop(el)
-        print(len(oggetti))
-        print()
-           
+        # creazione oggetti-----------------------------------------------------------------------------------
+        if timer == 0:
+            cosa = randint(0,3)
+            if cosa == 0 :
+                oggetti.append(Moneta([68,68]))
+            if cosa == 1:
+                oggetti2.append(Moneta2([68,68]))
+            else:
+                pozioni.append(Pozione([70,70]))
                 
-            
+            timer = 1* fps
+        timer -= 1
 
-    
-    screen.blit(punti_img,(270,35))
-    screen.blit(base,(0,740))
-    # disegno vaso
+    # eliminazione oggetti---------------------------------------------------------------------------------------------------
+        togliere = []
+        for i, oggetto in enumerate(oggetti):
+            if oggetto.update(screen):
+                togliere.append(i)
+            print(len(oggetti))
+            if oggetto.rect.colliderect(vaso.rect) and oggetto.rect.centerx>vaso.rect.left and oggetto.rect.centerx<vaso.rect.right and oggetto.rect.top<vaso.rect.top:
+                togliere.append(i)
+                punti += 2
+                suono.play()
+                punti_img = punti_font.render(str(punti),False,(0,0,150))
+            else:
+                oggetto.draw(screen)
+        for el in togliere[::-1]:
+            oggetti.pop(el)
+            print(len(oggetti))
+            print()
 
-    vaso.draw()
-    screen.blit(font_surf,(5,30))
-    
-    
-    
+        togliere2 = []
+        for i, oggetto in enumerate(oggetti2):
+            if oggetto.update(screen):
+                togliere2.append(i)
+            print(len(oggetti2))
+            if oggetto.rect.colliderect(vaso.rect) and oggetto.rect.centerx>vaso.rect.left and oggetto.rect.centerx<vaso.rect.right and oggetto.rect.top<vaso.rect.top:
+                togliere2.append(i)
+                punti += 1
+                suono.play()
+                punti_img = punti_font.render(str(punti),False,(0,0,150))
+            else:
+                oggetto.draw(screen)
+        for el in togliere2[::-1]:
+            oggetti2.pop(el)
+            print(len(oggetti2))
+            print()
+        
+        togliere1 = []
+        for i, pozione in enumerate(pozioni):
+            if pozione.update(screen):
+                togliere1.append(i)
+            print(len(pozioni))
+            if pozione.rect.colliderect(vaso.rect) and pozione.rect.centerx>vaso.rect.left and pozione.rect.centerx<vaso.rect.right and pozione.rect.top<vaso.rect.top:
+                togliere1.append(i)
+                pozione_suono.play()
+                pygame_active = False
+            else:
+                pozione.draw(screen)
+        for el in togliere1[::-1]:
+            pozioni.pop(el)
+            print(len(pozioni))
+            print()
+        
 
-   # screen.blit(vaso,(225,570))
+        
+        screen.blit(punti_img,(270,35))
+        screen.blit(base,(0,740))
+        # disegno vaso---------------------------------------------------------------------------------------
+
+        vaso.draw()
+        screen.blit(font_surf,(5,30))
+
+# if stati gioco------------------------------------------------------------------------------------------------
+    else:
+        
+        if pygame_regole_active:
+            screen.fill((204, 204, 100))
+            sottofondo.stop()
+            tavolo.draw(screen)
+            sottofondo.play(-1)
+            screen.blit(titolo_surf, titolo_rect)
+            screen.blit(space_surf, space_rect)
+            screen.blit(monete_surf, monete_rect)
+            screen.blit(pozione_surf, pozione_rect)
+            screen.blit(comandi_surf, comandi_rect)
+
+        else:
+            screen.fill((204, 204, 100))
+            sottofondo.stop()
+            bottone_gioca.draw()
+            bottone_regole.draw()
+            screen.blit(faraone, (150, 120))
+            sottofondo.play(-1)
+            screen.blit(titolo_surf, titolo_rect)
+            punteggio_msg = scritta_font.render(f'Il tuo punteggio     {punti}', False, '#FFFFFF')
+            punteggio_msg_rect = punteggio_msg.get_rect(center = (310, 570))
+
+            if punti == 0:
+                screen.blit(titolo_surf, titolo_rect)
+            else:
+                screen.blit(punteggio_msg, punteggio_msg_rect)
 
     pygame.display.flip() 
     clock.tick(fps) 
