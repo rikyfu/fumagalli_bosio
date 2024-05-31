@@ -6,7 +6,7 @@ class Pozione:
         self.image = pygame.image.load('immagini/pozione.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (size[0], size[1]))
         self.rect = pygame.Rect(randint(50,550), -20, size[0], size[1])
-        self.speed_y = randint(5,8)
+        self.speed_y = 8
 
     def update(self, screen):
         self.rect.y += self.speed_y
