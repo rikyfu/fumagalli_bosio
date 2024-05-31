@@ -7,10 +7,10 @@ from vaso import Vaso
 from moneta2 import Moneta2
 from moneta import Moneta
 from pozione import Pozione
-from fumagalli_bosio.bottone_tavolo import Bottone
-from fumagalli_bosio.bottone_tavolo import Tavolo
+from bottone_tavolo import Bottone
+from bottone_tavolo import Tavolo
 
-
+BLACK = (0,0,0)
 WIDTH, HEIGHT = 600, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('il vaso di Pandora')
@@ -18,19 +18,36 @@ clock = pygame.time.Clock()
 fps = 60
 vel_vaso = 7
 
-base = pygame.image.load('immagine/deserto1.png').convert()
+base = pygame.image.load('immagine/deserto1.png').convert_alpha()
 base =pygame.transform.scale(base,(600, 100))
-deserto = pygame.image.load('immagine/deserto.png').convert()
+deserto = pygame.image.load('immagine/deserto.png').convert_alpha()
 deserto =pygame.transform.scale(deserto,(600, 800))
-gameover = pygame.image.load('immagine/gameover.png').convert_alpha()
-# pozione = pygame.image.load('immagine/pozione.png').convert_alpha()
-# pozione =  pygame.transform.scale(pozione,(75, 75))
-# pos_y = -randint(20,40)
-# pos_x = randint(0,600)
+faraone = pygame.image.load('immagine/faraone.png').convert_alpha()
+faraone = pygame.transform.scale(faraone(300, 400))
+suono = pygame.mixer.Sound('coin.mp3')
+pozione_suono = pygame.mixer.Sound('pozione.mp3')
+sottofondo = pygame.mixer.Sound('sottofondo.mp3')
+sottofondo.set_volume(0.2)
+suono.set_volume(0.8)
 
-# poz_rect = pozione.get_rect()
+pygame_active = False
+pygame_regole_active = False
+
+
 scritta_font = pygame.font.Font('immagine/font.TTF',40)
 font_surf = scritta_font.render('punteggio',False,'Black')
+titolo_font = pygame.font.Font('immagine/font.TTF',55)
+titolo_surf = titolo_font.render('Il  vaso  di  Pandora',False,'White')
+titolo_rect = titolo_surf.get_rect(center = (300,80))
+space_surf = titolo_font.render('Press  Space  to  play',False,'White')
+space_rect = space_surf.get_rect(center = (300,600))
+monete_surf = scritta_font.render('raccogli  le  monete',False,'White')
+monete_rect = monete_surf.get_rect(center = (300,270))
+pozione_surf = scritta_font.render('evita  le  pozioni',False,'White')
+pozione_rect = pozione_surf.get_rect(center = (300,350))
+comandi_font = pygame.font.Font('immagine/font.TTF',35)
+comandi_surf = comandi_font.render('muoviti  con  le  frecce  DX  e  SX',False,'White')
+comandi_rect = space_surf.get_rect(center = (300,440))
 
 punti = 0
 punti_font =  pygame.font.Font('immagine/font.TTF',40)
