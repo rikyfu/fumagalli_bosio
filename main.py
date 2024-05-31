@@ -10,6 +10,7 @@ from pozione import Pozione
 from bottone_tavolo import Bottone
 from bottone_tavolo import Tavolo
 
+# creazione schermata di gioco--------------------------------------------------------------------
 BLACK = (0,0,0)
 WIDTH, HEIGHT = 600, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -18,22 +19,26 @@ clock = pygame.time.Clock()
 fps = 60
 vel_vaso = 7
 
+# caricamento immagini----------------------------------------------------------------------------
 base = pygame.image.load('immagine/deserto1.png').convert_alpha()
 base =pygame.transform.scale(base,(600, 100))
 deserto = pygame.image.load('immagine/deserto.png').convert_alpha()
 deserto =pygame.transform.scale(deserto,(600, 800))
 faraone = pygame.image.load('immagine/faraone.png').convert_alpha()
 faraone = pygame.transform.scale(faraone(300, 400))
+
+# caricamento musiche-------------------------------------------------------------------------------
 suono = pygame.mixer.Sound('coin.mp3')
 pozione_suono = pygame.mixer.Sound('pozione.mp3')
 sottofondo = pygame.mixer.Sound('sottofondo.mp3')
 sottofondo.set_volume(0.2)
 suono.set_volume(0.8)
 
+# booleane per lo stato di gioco--------------------------------------------------------------------
 pygame_active = False
 pygame_regole_active = False
 
-
+# creazione oggetti e scritte-----------------------------------------------------------------------
 scritta_font = pygame.font.Font('immagine/font.TTF',40)
 font_surf = scritta_font.render('punteggio',False,'Black')
 titolo_font = pygame.font.Font('immagine/font.TTF',55)
@@ -49,14 +54,30 @@ comandi_font = pygame.font.Font('immagine/font.TTF',35)
 comandi_surf = comandi_font.render('muoviti  con  le  frecce  DX  e  SX',False,'White')
 comandi_rect = space_surf.get_rect(center = (300,440))
 
+# punteggio------------------------------------------------------------------------------------------
 punti = 0
 punti_font =  pygame.font.Font('immagine/font.TTF',40)
 punti_img = punti_font.render(str(punti),False,'Black')
-vaso = Vaso(screen,[225,585],[175,175])
-# pozione = Pozione([70,70],vaso)
-# moneta = Moneta([65,65],vaso,punti)
 
+# creazione classi------------------------------------------------------------------------------------
+vaso = Vaso(screen,[225,585],[175,175])
+tavolo = Tavolo([580, 300])
+
+bottone_gioca = Bottone(screen, 
+                        [310, 650],# pos
+                        [220, 100], #size
+                        'gioca'
+                        )
+
+bottone_regole = Bottone(screen, 
+                        [70, 650],# pos
+                        [220, 100], #size
+                        'regole'
+                        )
+
+# liste---------------------------------------------------------------------------------------------
 oggetti = []
+oggetti2 = []
 pozioni = []
 timer = 0
 
