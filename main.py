@@ -25,7 +25,7 @@ base =pygame.transform.scale(base,(600, 100))
 deserto = pygame.image.load('immagine/deserto.png').convert_alpha()
 deserto =pygame.transform.scale(deserto,(600, 800))
 faraone = pygame.image.load('immagine/faraone.png').convert_alpha()
-faraone = pygame.transform.scale(faraone(300, 400))
+faraone = pygame.transform.scale(faraone,(300, 400))
 
 # caricamento musiche-------------------------------------------------------------------------------
 suono = pygame.mixer.Sound('coin.mp3')
@@ -40,7 +40,7 @@ pygame_regole_active = False
 
 # creazione oggetti e scritte-----------------------------------------------------------------------
 scritta_font = pygame.font.Font('immagine/font.TTF',40)
-font_surf = scritta_font.render('punteggio',False,'Black')
+font_surf = scritta_font.render('punteggio',False,(0,0,150))
 titolo_font = pygame.font.Font('immagine/font.TTF',55)
 titolo_surf = titolo_font.render('Il  vaso  di  Pandora',False,'White')
 titolo_rect = titolo_surf.get_rect(center = (300,80))
@@ -57,7 +57,7 @@ comandi_rect = space_surf.get_rect(center = (300,440))
 # punteggio------------------------------------------------------------------------------------------
 punti = 0
 punti_font =  pygame.font.Font('immagine/font.TTF',40)
-punti_img = punti_font.render(str(punti),False,'Black')
+punti_img = punti_font.render(str(punti),False,(0,0,150))
 
 # creazione classi------------------------------------------------------------------------------------
 vaso = Vaso(screen,[225,585],[175,175])
@@ -89,22 +89,24 @@ while True:
             exit()
         if not pygame_active:
             pos = pygame.mouse.get_pos()
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                pygame_active = True
-
-                punti = 0
-            else:
-                bottone_gioca.base()
-            if bottone_regole.rect.collidepoint(pos):
-                bottone_regole.chiaro()
+            if bottone_gioca.rect.collidepoint(pos):
+                bottone_gioca.chiaro()
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    pygame_regole_active = True
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    pygame_active = True
-                    pygame_regole_active = False
-                    punti = 0
+                     pygame_active = True
+
+                     punti = 0
             else:
-                bottone_regole.base()
+                 bottone_gioca.base()
+            if bottone_regole.rect.collidepoint(pos):
+                 bottone_regole.chiaro()
+                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                     pygame_regole_active = True
+                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                     pygame_active = True
+                     pygame_regole_active = False
+                     punti = 0
+            else:
+                 bottone_regole.base()
     
 # creazione if stati del gioco---------------------------------------------------------------------------------------
     if pygame_active:
